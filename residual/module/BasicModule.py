@@ -4,7 +4,7 @@ from typing import Tuple
 from typing import Type
 
 
-class BasicBlock(torch.nn.Module):
+class BasicModule(torch.nn.Module):
     def __init__(
         self,
         in_channels: int,

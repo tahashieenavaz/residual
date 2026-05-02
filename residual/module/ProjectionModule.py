@@ -2,7 +2,7 @@ import torch
 from typing import Type
 
 
-class ProjectionBlock(torch.nn.Module):
+class ProjectionModule(torch.nn.Module):
     def __init__(
         self,
         in_channels: int = 3,

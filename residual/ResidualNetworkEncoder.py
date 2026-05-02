@@ -20,17 +20,18 @@ class ResidualNetworkEncoder(torch.nn.Module):
 
     def __make_layer(
         self,
-        block: Type[torch.nn.Module],
+        module: Type[torch.nn.Module],
         out_channels: int,
         num_blocks: int,
         stride: int,
+        expansion: int,
     ) -> torch.nn.Module:
         # Only the first block in a layer might have a stride of 2; the rest have a stride of 1
         strides = [stride] + [1] * (num_blocks - 1)
         layers = []
-        for s in strides:
-            layers.append(block(self.in_channels, out_channels, s))
-            self.in_channels = out_channels * block.expansion
+        for _stride in strides:
+            layers.append(module(self.in_channels, out_channels, _stride))
+            self.in_channels = out_channels * expansion
         return torch.nn.Sequential(*layers)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
