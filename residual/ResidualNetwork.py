@@ -1,5 +1,6 @@
 import torch
 from typing import Type
+from .blocks import ProjectionBlock
 from .ResidualNetworkEncoder import ResidualNetworkEncoder
 
 
@@ -14,6 +15,9 @@ class ResidualNetwork(torch.nn.Module):
         num_classes: int,
     ):
         super().__init__()
+        self.projection = ProjectionBlock(
+            in_channels=in_channels, out_channels=projection_channels
+        )
         self.encoder = ResidualNetworkEncoder(
             block=block,
             projection_channels=projection_channels,
